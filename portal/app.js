@@ -88,7 +88,7 @@
         const { data: cmUser, error } = await supabase
             .from('cm_users')
             .select('*, cm_clients(*)')
-            .eq('user_id', user.id)
+            .eq('id', user.id)
             .eq('client_slug', clientSlug)
             .single();
 
