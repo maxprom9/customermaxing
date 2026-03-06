@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CustomerMaxing - AI-powered customer service that answers when your team can't. Never miss another customer call.">
+    <meta name="keywords" content="AI customer service, automated answering, call routing, AI phone system, customer support automation">
+    <meta name="author" content="CustomerMaxing">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="CustomerMaxing - Never Miss Another Customer Call">
+    <meta property="og:description" content="AI-powered customer service that answers when your team can't. 24/7 coverage with your knowledge base.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://customermaxing.com">
+    <meta property="og:image" content="https://customermaxing.com/og-image.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="CustomerMaxing - Never Miss Another Customer Call">
+    <meta name="twitter:description" content="AI-powered customer service that answers when your team can't.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📞</text></svg>">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+    <title>CustomerMaxing - Never Miss Another Customer Call</title>
+</head>
+<body>
+    <!-- Background Effects -->
+    <div class="bg-effects" aria-hidden="true">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+        <div class="grid-pattern"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="#" class="nav-logo">
+                <span class="logo-icon">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="32" height="32" rx="8" fill="#10B981"/>
+                        <path d="M8 12C8 10.8954 8.89543 10 10 10H22C23.1046 10 24 10.8954 24 12V18C24 19.1046 23.1046 20 22 20H18L14 24V20H10C8.89543 20 8 19.1046 8 18V12Z" fill="white"/>
+                        <circle cx="13" cy="15" r="1.5" fill="#10B981"/>
+                        <circle cx="19" cy="15" r="1.5" fill="#10B981"/>
+                    </svg>
+                </span>
+                <span class="logo-text">CustomerMaxing</span>
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="#how-it-works">How It Works</a>
+                <a href="#features">Features</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#testimonials">Testimonials</a>
+            </div>
+            <div class="nav-actions">
+                <button class="btn btn-ghost" id="loginBtn">Log In</button>
+                <a href="#cta" class="btn btn-primary btn-sm">Get Started</a>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero" id="hero">
+        <div class="container">
+            <div class="hero-content fade-in">
+                <div class="hero-badge">
+                    <span class="badge-dot"></span>
+                    AI-Powered Customer Service
+                </div>
+                <h1 class="hero-title">
+                    Never Miss Another<br>
+                    <span class="text-gradient">Customer Call</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Your AI answers when your team can't. Trained on your knowledge base,
+                    it handles questions, sends links via text, and routes complex calls to
+                    the right person &mdash; 24/7.
+                </p>
+                <div class="hero-ctas">
+                    <a href="#cta" class="btn btn-primary btn-lg">
+                        Get Started
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10h12m0 0l-4-4m4 4l-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </a>
+                    <a href="#how-it-works" class="btn btn-secondary btn-lg">
+                        See How It Works
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">99.9%</span>
+                        <span class="stat-label">Uptime</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat">
+                        <span class="stat-number">&lt;2s</span>
+                        <span class="stat-label">Response Time</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat">
+                        <span class="stat-number">500+</span>
+                        <span class="stat-label">Businesses Served</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- How It Works -->
+    <section class="section how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-tag">How It Works</span>
+                <h2 class="section-title">Three Steps to Never Missing a Call</h2>
+                <p class="section-subtitle">Smart routing that keeps your team first and AI as the safety net.</p>
+            </div>
+            <div class="steps-grid">
+                <div class="step-card fade-in">
+                    <div class="step-number">1</div>
+                    <div class="step-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <circle cx="24" cy="24" r="20" stroke="#10B981" stroke-width="2" fill="#F0FDF4"/>
+                            <path d="M30 20c0-3.3-2.7-6-6-6s-6 2.7-6 6c0 2 1 3.8 2.5 4.9C17.9 26.3 16 29 16 32h16c0-3-1.9-5.7-4.5-7.1C29 23.8 30 22 30 20z" fill="#10B981"/>
+                        </svg>
+                    </div>
+                    <h3 class="step-title">Call Routes to Your Team</h3>
+                    <p class="step-desc">Every call goes to your staff first. Your team always gets first priority to answer.</p>
+                    <div class="step-connector" aria-hidden="true"></div>
+                </div>
+                <div class="step-card fade-in">
+                    <div class="step-number">2</div>
+                    <div class="step-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <circle cx="24" cy="24" r="20" stroke="#10B981" stroke-width="2" fill="#F0FDF4"/>
+                            <rect x="15" y="17" width="18" height="14" rx="3" fill="#10B981"/>
+                            <circle cx="21" cy="24" r="2" fill="white"/>
+                            <circle cx="27" cy="24" r="2" fill="white"/>
+                            <path d="M20 27c0 0 1.5 2 4 2s4-2 4-2" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="step-title">AI Picks Up</h3>
+                    <p class="step-desc">If no one answers, your AI steps in &mdash; armed with your full knowledge base and business context.</p>
+                    <div class="step-connector" aria-hidden="true"></div>
+                </div>
+                <div class="step-card fade-in">
+                    <div class="step-number">3</div>
+                    <div class="step-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <circle cx="24" cy="24" r="20" stroke="#10B981" stroke-width="2" fill="#F0FDF4"/>
+                            <path d="M16 19h16v2H16zM16 23h12v2H16zM16 27h8v2H16z" fill="#10B981"/>
+                            <path d="M30 25l4 4m0-4l-4 4" stroke="#10B981" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="step-title">Resolve or Route</h3>
+                    <p class="step-desc">AI answers questions, texts payment links or forms, and escalates to a real person when needed.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="section features" id="features">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-tag">Features</span>
+                <h2 class="section-title">Everything You Need to Maximize Customer Service</h2>
+                <p class="section-subtitle">Powerful tools that work together seamlessly.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">24/7 AI Answering</h3>
+                    <p class="feature-desc">Your AI never sleeps, never calls in sick, and never puts customers on hold. Every call gets answered, every time.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Knowledge Base Powered</h3>
+                    <p class="feature-desc">Train your AI on your FAQs, services, pricing, and policies. It speaks with your voice and knows your business inside out.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">SMS Links</h3>
+                    <p class="feature-desc">AI texts payment links, booking forms, and documents directly to callers. Turn calls into conversions instantly.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Call Recording & Transcripts</h3>
+                    <p class="feature-desc">Every call is recorded and transcribed automatically. Review conversations, train your team, and ensure quality.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Client Dashboard</h3>
+                    <p class="feature-desc">See every call, every conversation, and every outcome in real time. Full visibility into your customer interactions.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Multi-Tenant Support</h3>
+                    <p class="feature-desc">Manage multiple business locations or clients from a single platform. Each gets their own AI, knowledge base, and portal.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="section pricing" id="pricing">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-tag">Pricing</span>
+                <h2 class="section-title">Simple, Transparent Pricing</h2>
+                <p class="section-subtitle">No hidden fees. No long-term contracts. Cancel anytime.</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card fade-in">
+                    <div class="pricing-header">
+                        <h3 class="pricing-tier">Starter</h3>
+                        <div class="pricing-price">
+                            <span class="price-currency">$</span>
+                            <span class="price-amount">299</span>
+                            <span class="price-period">/mo</span>
+                        </div>
+                        <p class="pricing-calls">200 calls included</p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><svg width="16" height="16" viewBox="0 0 16 16" fill="#10B981"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg> 24/7 AI answering</li>
+                        <li><svg width="16" height="16" viewBox="0 0 16 16" fill="#10B981"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg> Knowledge base (up to 50 pages)</li>
+                        <li><svg width="16" height="16" viewBox="0 0 16 16" fill="#10B981"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg> SMS link sending</li>
+                        <li><svg width="16" height="16" viewBox="0 0 16 16" fill="#10B981"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg> Call recordings</li>
+                        <li><svg width="16" height="16" viewBox="0 0 16 16" fill="#10B981"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg> Client dashboard</li>
+                        <li class="disabled"><svg width="16" height="16" viewBox="0 0 16 16" fill="#D1D5DB"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg> Multi-tenant</li>
+                        <li class="disabled"><svg width="16" height="16" viewBox="0 0 16 16" fill="#D1D5DB"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg> Dedicated account manager</li>
+                    </ul>
+                    <a href="#cta" class="btn btn-secondary btn-block">Get Started</a>
+                </div>
+                <div class="pricing-card featured fade-in">
+                    <div class="pricing-badge">Most Popular</div>
+                    <div class="pricing-header">
+                        <h3 class="pricing-tier">Professional</h3>
+                        <div class="pricing-price">
+                            <span class="price-currency">$</span>
+                            <span class="price-amount">599</span>
+                            <span class="price-period">/mo</span>
+                        </div>
+                        <p class="pricing-calls">500 calls included</p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><svg width="16" height="16" viewBox="0 0 16 16" fill="#10B981"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg> 24/7 AI answering</li>
+                        <li><svg width="16" height="16" viewBox="0 0 16 16" fill="#10B981"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg> Knowledge base (unlimited)</li>
+                        <li><svg width="16" height="16" viewBox="0 0 16 16" fill="#10B981"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg> SMS link sending</li>
+                        <li><svg width="16" height="16" viewBox="0 0 16 16" fill="#10B981"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg> Call recordings & transcripts</li>
+                        <li><svg width="16" height="16" viewBox="0 0 16 16" fill="#10B981"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg> Client dashboard</li>
+                        <li><svg width="16" height="16" viewBox="0 0 16 16" fill="#10B981"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg> Multi-tenant (up to 5)</li>
+                        <li class="disabled"><svg width="16" height="16" viewBox="0 0 16 16" fill="#D1D5DB"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg> Dedicated account manager</li>
+                    </ul>
+                    <a href="#cta" class="btn btn-primary btn-block">Get Started</a>
+                </div>
+                <div class="pricing-card fade-in">
+                    <div class="pricing-header">
+                        <h3 class="pricing-tier">Enterprise</h3>
+                        <div class="pricing-price">
+                            <span class="price-amount" style="font-size: 2rem;">Custom</span>
+                        </div>
+                        <p class="pricing-calls">Unlimited calls</p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><svg width="16" height="16" viewBox="0 0 16 16" fill="#10B981"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg> 24/7 AI answering</li>
+                        <li><svg width="16" height="16" viewBox="0 0 16 16" fill="#10B981"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg> Knowledge base (unlimited)</li>
+                        <li><svg width="16" height="16" viewBox="0 0 16 16" fill="#10B981"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg> SMS link sending</li>
+                        <li><svg width="16" height="16" viewBox="0 0 16 16" fill="#10B981"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg> Call recordings & transcripts</li>
+                        <li><svg width="16" height="16" viewBox="0 0 16 16" fill="#10B981"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg> Client dashboard</li>
+                        <li><svg width="16" height="16" viewBox="0 0 16 16" fill="#10B981"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg> Unlimited multi-tenant</li>
+                        <li><svg width="16" height="16" viewBox="0 0 16 16" fill="#10B981"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg> Dedicated account manager</li>
+                    </ul>
+                    <a href="#cta" class="btn btn-secondary btn-block">Contact Sales</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-tag">Testimonials</span>
+                <h2 class="section-title">Trusted by Businesses Like Yours</h2>
+                <p class="section-subtitle">See what our customers have to say.</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card fade-in">
+                    <div class="testimonial-stars">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="#FBBF24"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.7l5.34-.78L10 1z"/></svg>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="#FBBF24"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.7l5.34-.78L10 1z"/></svg>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="#FBBF24"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.7l5.34-.78L10 1z"/></svg>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="#FBBF24"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.7l5.34-.78L10 1z"/></svg>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="#FBBF24"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.7l5.34-.78L10 1z"/></svg>
+                    </div>
+                    <p class="testimonial-text">"We were losing 30% of calls after hours. Now every single call gets answered. Our revenue went up 22% in the first month."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">JM</div>
+                        <div class="author-info">
+                            <span class="author-name">James Mitchell</span>
+                            <span class="author-role">Owner, Mitchell Property Management</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card fade-in">
+                    <div class="testimonial-stars">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="#FBBF24"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.7l5.34-.78L10 1z"/></svg>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="#FBBF24"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.7l5.34-.78L10 1z"/></svg>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="#FBBF24"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.7l5.34-.78L10 1z"/></svg>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="#FBBF24"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.7l5.34-.78L10 1z"/></svg>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="#FBBF24"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.7l5.34-.78L10 1z"/></svg>
+                    </div>
+                    <p class="testimonial-text">"The AI knows our menu, our hours, our specials. Customers can't even tell they're talking to AI. It's like having a perfect receptionist."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SR</div>
+                        <div class="author-info">
+                            <span class="author-name">Sarah Rodriguez</span>
+                            <span class="author-role">GM, Riverside Dental Group</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card fade-in">
+                    <div class="testimonial-stars">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="#FBBF24"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.7l5.34-.78L10 1z"/></svg>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="#FBBF24"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.7l5.34-.78L10 1z"/></svg>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="#FBBF24"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.7l5.34-.78L10 1z"/></svg>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="#FBBF24"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.7l5.34-.78L10 1z"/></svg>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="#FBBF24"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.7l5.34-.78L10 1z"/></svg>
+                    </div>
+                    <p class="testimonial-text">"Setup took 20 minutes. The SMS feature alone pays for itself &mdash; customers get payment links texted to them during the call."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">DK</div>
+                        <div class="author-info">
+                            <span class="author-name">David Kim</span>
+                            <span class="author-role">Director, Pacific Coast HVAC</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section cta-section" id="cta">
+        <div class="container">
+            <div class="cta-card fade-in">
+                <h2 class="cta-title">Ready to Stop Losing Customers?</h2>
+                <p class="cta-subtitle">Start answering every call today. Set up in under 30 minutes.</p>
+                <form class="cta-form" id="ctaForm">
+                    <div class="form-group">
+                        <input type="email" class="form-input" id="ctaEmail" placeholder="Enter your email address" required>
+                        <button type="submit" class="btn btn-primary btn-lg">Get Started Free</button>
+                    </div>
+                    <p class="form-note">14-day free trial. No credit card required.</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="nav-logo">
+                        <span class="logo-icon">
+                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="32" height="32" rx="8" fill="#10B981"/>
+                                <path d="M8 12C8 10.8954 8.89543 10 10 10H22C23.1046 10 24 10.8954 24 12V18C24 19.1046 23.1046 20 22 20H18L14 24V20H10C8.89543 20 8 19.1046 8 18V12Z" fill="white"/>
+                                <circle cx="13" cy="15" r="1.5" fill="#10B981"/>
+                                <circle cx="19" cy="15" r="1.5" fill="#10B981"/>
+                            </svg>
+                        </span>
+                        <span class="logo-text">CustomerMaxing</span>
+                    </a>
+                    <p class="footer-desc">AI-powered customer service that answers when your team can't. Never miss another call.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Twitter" class="social-link">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </a>
+                        <a href="#" aria-label="LinkedIn" class="social-link">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                        <a href="#" aria-label="Facebook" class="social-link">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-links-group">
+                    <h4 class="footer-heading">Product</h4>
+                    <ul class="footer-links">
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#">Integrations</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-group">
+                    <h4 class="footer-heading">Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-group">
+                    <h4 class="footer-heading">Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 CustomerMaxing. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal">
+            <button class="modal-close" id="modalClose" aria-label="Close modal">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+            <div class="modal-header">
+                <h3 class="modal-title">Log In to Your Portal</h3>
+                <p class="modal-subtitle">Enter your company ID to access your dashboard.</p>
+            </div>
+            <form class="modal-form" id="loginForm">
+                <div class="modal-input-group">
+                    <input type="text" class="form-input" id="companyIdInput" placeholder="e.g. grantmgmt" required autocomplete="off" pattern="[a-zA-Z0-9\-]+" title="Letters, numbers, and hyphens only">
+                    <span class="input-suffix">.customermaxing.com</span>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Access Portal</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>

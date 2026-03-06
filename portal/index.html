@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CustomerMaxing Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="login-screen" class="login-screen">
+        <div class="login-card">
+            <div class="login-logo">
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                    <rect width="40" height="40" rx="10" fill="#10B981"/>
+                    <path d="M12 20.5L17.5 26L28 15" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <h1>CustomerMaxing</h1>
+            </div>
+            <p class="login-subtitle">Sign in to your portal</p>
+            <div id="login-error" class="login-error hidden"></div>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-email">Email address</label>
+                    <input type="email" id="login-email" placeholder="you@company.com" required autocomplete="email">
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" placeholder="Enter your password" required autocomplete="current-password">
+                </div>
+                <button type="submit" class="btn btn-primary btn-full" id="login-btn">
+                    <span class="btn-text">Sign In</span>
+                    <span class="btn-spinner hidden"></span>
+                </button>
+            </form>
+            <p class="login-footer">Powered by CustomerMaxing AI</p>
+        </div>
+    </div>
+
+    <!-- Access Denied Screen -->
+    <div id="access-denied-screen" class="login-screen hidden">
+        <div class="login-card">
+            <div class="login-logo">
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                    <rect width="40" height="40" rx="10" fill="#EF4444"/>
+                    <path d="M14 14L26 26M26 14L14 26" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+                <h1>Access Denied</h1>
+            </div>
+            <p class="login-subtitle">You don't have access to this organization.</p>
+            <p class="login-subtitle" style="font-size: 0.85rem; color: #9CA3AF;">If you believe this is an error, please contact your administrator.</p>
+            <button class="btn btn-secondary btn-full" id="logout-denied-btn">Sign out and try again</button>
+        </div>
+    </div>
+
+    <!-- Main App Shell -->
+    <div id="app" class="app-shell hidden">
+        <!-- Mobile Header -->
+        <header class="mobile-header">
+            <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle sidebar">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+                </svg>
+            </button>
+            <span class="mobile-title">CustomerMaxing</span>
+            <div class="mobile-avatar" id="mobile-avatar"></div>
+        </header>
+
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <svg width="32" height="32" viewBox="0 0 40 40" fill="none">
+                    <rect width="40" height="40" rx="10" fill="#10B981"/>
+                    <path d="M12 20.5L17.5 26L28 15" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <div class="sidebar-brand">
+                    <span class="brand-name">CustomerMaxing</span>
+                    <span class="brand-org" id="sidebar-org-name"></span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="#dashboard" class="nav-item active" data-view="dashboard">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
+                    </svg>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#calls" class="nav-item" data-view="calls">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+                    </svg>
+                    <span>Call Log</span>
+                </a>
+                <a href="#knowledge" class="nav-item" data-view="knowledge">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
+                    </svg>
+                    <span>Knowledge Base</span>
+                </a>
+                <a href="#team" class="nav-item" data-view="team">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/>
+                    </svg>
+                    <span>Team Members</span>
+                </a>
+                <a href="#settings" class="nav-item" data-view="settings">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
+                    </svg>
+                    <span>Settings</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar" id="sidebar-avatar"></div>
+                    <div class="user-details">
+                        <span class="user-name" id="sidebar-user-name"></span>
+                        <span class="user-email" id="sidebar-user-email"></span>
+                    </div>
+                </div>
+                <button class="btn-icon" id="logout-btn" title="Sign out">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+                    </svg>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Sidebar Overlay (mobile) -->
+        <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard View -->
+            <div id="view-dashboard" class="view active">
+                <div class="view-header">
+                    <h2>Dashboard</h2>
+                    <p class="view-subtitle">Overview of your AI phone system</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon stat-icon-blue">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="stat-total-calls">--</span>
+                            <span class="stat-label">Total Calls Today</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon stat-icon-green">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 100 20 10 10 0 000-20z"/><path d="M12 6v6l4 2"/></svg>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="stat-ai-calls">--</span>
+                            <span class="stat-label">AI-Handled Calls</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon stat-icon-yellow">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="stat-avg-time">--</span>
+                            <span class="stat-label">Avg Response Time</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon stat-icon-purple">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 00-6 0v4"/><path d="M5 9h14l1 12H4L5 9z"/></svg>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="stat-satisfaction">--</span>
+                            <span class="stat-label">Customer Satisfaction</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Calls Chart -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Calls This Week</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="bar-chart" id="calls-chart">
+                            <div class="bar-chart-loading">Loading chart data...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Calls -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Recent Calls</h3>
+                        <a href="#calls" class="link-btn">View all</a>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-wrapper">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Time</th>
+                                        <th>Caller</th>
+                                        <th>Duration</th>
+                                        <th>Handled By</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recent-calls-body">
+                                    <tr><td colspan="5" class="table-empty">Loading recent calls...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call Log View -->
+            <div id="view-calls" class="view">
+                <div class="view-header">
+                    <h2>Call Log</h2>
+                    <p class="view-subtitle">Complete history of all incoming calls</p>
+                </div>
+
+                <!-- Filters -->
+                <div class="filters-bar">
+                    <div class="filter-group">
+                        <input type="text" id="call-search" class="input-field" placeholder="Search calls...">
+                    </div>
+                    <div class="filter-group">
+                        <input type="date" id="call-date-from" class="input-field" title="From date">
+                    </div>
+                    <div class="filter-group">
+                        <input type="date" id="call-date-to" class="input-field" title="To date">
+                    </div>
+                    <div class="filter-group">
+                        <select id="call-handler-filter" class="input-field">
+                            <option value="">All Handlers</option>
+                            <option value="ai">AI Only</option>
+                            <option value="human">Human Only</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <select id="call-status-filter" class="input-field">
+                            <option value="">All Statuses</option>
+                            <option value="completed">Completed</option>
+                            <option value="missed">Missed</option>
+                            <option value="voicemail">Voicemail</option>
+                            <option value="transferred">Transferred</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-secondary" id="call-filter-btn">Filter</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-body no-padding">
+                        <div class="table-wrapper">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date / Time</th>
+                                        <th>Caller</th>
+                                        <th>Duration</th>
+                                        <th>Handled By</th>
+                                        <th>Status</th>
+                                        <th>Recording</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="calls-table-body">
+                                    <tr><td colspan="6" class="table-empty">Loading calls...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Call Transcript Modal -->
+                <div id="transcript-modal" class="modal hidden">
+                    <div class="modal-backdrop"></div>
+                    <div class="modal-content modal-lg">
+                        <div class="modal-header">
+                            <h3 id="transcript-title">Call Details</h3>
+                            <button class="modal-close" id="transcript-close">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="call-detail-grid">
+                                <div class="call-detail-item">
+                                    <span class="detail-label">Caller</span>
+                                    <span class="detail-value" id="detail-caller"></span>
+                                </div>
+                                <div class="call-detail-item">
+                                    <span class="detail-label">Date / Time</span>
+                                    <span class="detail-value" id="detail-datetime"></span>
+                                </div>
+                                <div class="call-detail-item">
+                                    <span class="detail-label">Duration</span>
+                                    <span class="detail-value" id="detail-duration"></span>
+                                </div>
+                                <div class="call-detail-item">
+                                    <span class="detail-label">Handled By</span>
+                                    <span class="detail-value" id="detail-handler"></span>
+                                </div>
+                                <div class="call-detail-item">
+                                    <span class="detail-label">Status</span>
+                                    <span class="detail-value" id="detail-status"></span>
+                                </div>
+                                <div class="call-detail-item">
+                                    <span class="detail-label">Sentiment</span>
+                                    <span class="detail-value" id="detail-sentiment"></span>
+                                </div>
+                            </div>
+                            <h4 style="margin: 1.5rem 0 1rem;">Transcript</h4>
+                            <div class="transcript-container" id="transcript-body">
+                                <p class="text-muted">No transcript available.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination" id="calls-pagination"></div>
+            </div>
+
+            <!-- Knowledge Base View -->
+            <div id="view-knowledge" class="view">
+                <div class="view-header">
+                    <div>
+                        <h2>Knowledge Base</h2>
+                        <p class="view-subtitle">Articles your AI agent uses to answer calls</p>
+                    </div>
+                    <button class="btn btn-primary" id="kb-add-btn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        Add Entry
+                    </button>
+                </div>
+
+                <div class="filters-bar">
+                    <div class="filter-group" style="flex:1;">
+                        <input type="text" id="kb-search" class="input-field" placeholder="Search knowledge base...">
+                    </div>
+                    <div class="filter-group">
+                        <select id="kb-category-filter" class="input-field">
+                            <option value="">All Categories</option>
+                            <option value="FAQ">FAQ</option>
+                            <option value="Policies">Policies</option>
+                            <option value="Procedures">Procedures</option>
+                            <option value="Contact Info">Contact Info</option>
+                            <option value="Custom">Custom</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="kb-grid" id="kb-grid">
+                    <div class="table-empty" style="padding:3rem;text-align:center;">Loading knowledge base...</div>
+                </div>
+
+                <!-- KB Editor Modal -->
+                <div id="kb-modal" class="modal hidden">
+                    <div class="modal-backdrop"></div>
+                    <div class="modal-content modal-lg">
+                        <div class="modal-header">
+                            <h3 id="kb-modal-title">Add Knowledge Base Entry</h3>
+                            <button class="modal-close" id="kb-modal-close">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="kb-form">
+                                <input type="hidden" id="kb-edit-id">
+                                <div class="form-group">
+                                    <label for="kb-title">Title</label>
+                                    <input type="text" id="kb-title" class="input-field" placeholder="Entry title" required>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group" style="flex:1;">
+                                        <label for="kb-category">Category</label>
+                                        <select id="kb-category" class="input-field" required>
+                                            <option value="FAQ">FAQ</option>
+                                            <option value="Policies">Policies</option>
+                                            <option value="Procedures">Procedures</option>
+                                            <option value="Contact Info">Contact Info</option>
+                                            <option value="Custom">Custom</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="kb-content">Content</label>
+                                    <textarea id="kb-content" class="input-field textarea-lg" placeholder="Write your knowledge base entry here. The AI agent will use this to answer customer calls." required></textarea>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="button" class="btn btn-secondary" id="kb-cancel-btn">Cancel</button>
+                                    <button type="submit" class="btn btn-primary" id="kb-save-btn">Save Entry</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Members View -->
+            <div id="view-team" class="view">
+                <div class="view-header">
+                    <div>
+                        <h2>Team Members</h2>
+                        <p class="view-subtitle">Manage team availability and call routing</p>
+                    </div>
+                    <button class="btn btn-primary" id="team-add-btn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        Add Member
+                    </button>
+                </div>
+
+                <div class="team-grid" id="team-grid">
+                    <div class="table-empty" style="padding:3rem;text-align:center;">Loading team members...</div>
+                </div>
+
+                <!-- Team Member Modal -->
+                <div id="team-modal" class="modal hidden">
+                    <div class="modal-backdrop"></div>
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 id="team-modal-title">Add Team Member</h3>
+                            <button class="modal-close" id="team-modal-close">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="team-form">
+                                <input type="hidden" id="team-edit-id">
+                                <div class="form-group">
+                                    <label for="team-name">Full Name</label>
+                                    <input type="text" id="team-name" class="input-field" placeholder="John Smith" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="team-phone">Phone Number</label>
+                                    <input type="tel" id="team-phone" class="input-field" placeholder="+1 (555) 123-4567" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="team-role">Role</label>
+                                    <input type="text" id="team-role" class="input-field" placeholder="e.g., Sales Manager">
+                                </div>
+                                <div class="form-group">
+                                    <label for="team-routing-order">Routing Order</label>
+                                    <input type="number" id="team-routing-order" class="input-field" placeholder="1" min="1" required>
+                                    <span class="form-hint">Lower numbers get called first</span>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="button" class="btn btn-secondary" id="team-cancel-btn">Cancel</button>
+                                    <button type="submit" class="btn btn-primary">Save Member</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings View -->
+            <div id="view-settings" class="view">
+                <div class="view-header">
+                    <h2>Settings</h2>
+                    <p class="view-subtitle">Configure your AI phone system</p>
+                </div>
+
+                <form id="settings-form">
+                    <!-- Company Settings -->
+                    <div class="card">
+                        <div class="card-header"><h3>Company Information</h3></div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="setting-company-name">Company Name</label>
+                                <input type="text" id="setting-company-name" class="input-field" placeholder="Your Company Name">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group" style="flex:1;">
+                                    <label for="setting-business-hours-open">Business Hours - Open</label>
+                                    <input type="time" id="setting-business-hours-open" class="input-field" value="09:00">
+                                </div>
+                                <div class="form-group" style="flex:1;">
+                                    <label for="setting-business-hours-close">Business Hours - Close</label>
+                                    <input type="time" id="setting-business-hours-close" class="input-field" value="17:00">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="setting-twilio-number">Twilio Phone Number</label>
+                                <input type="text" id="setting-twilio-number" class="input-field" disabled placeholder="Assigned by CustomerMaxing">
+                                <span class="form-hint">Contact support to change your phone number</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AI Settings -->
+                    <div class="card">
+                        <div class="card-header"><h3>AI Agent Configuration</h3></div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="setting-greeting">Greeting Message</label>
+                                <textarea id="setting-greeting" class="input-field textarea-md" placeholder="Hello! Thank you for calling [Company]. How can I help you today?"></textarea>
+                                <span class="form-hint">The first thing the AI says when answering a call</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="setting-tone">AI Tone</label>
+                                <select id="setting-tone" class="input-field">
+                                    <option value="professional">Professional</option>
+                                    <option value="friendly">Friendly</option>
+                                    <option value="casual">Casual</option>
+                                </select>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group" style="flex:1;">
+                                    <label for="setting-max-hold">Max Hold Time (seconds)</label>
+                                    <input type="number" id="setting-max-hold" class="input-field" value="30" min="10" max="120">
+                                </div>
+                                <div class="form-group" style="flex:1;">
+                                    <label for="setting-escalation">Escalation Rule</label>
+                                    <select id="setting-escalation" class="input-field">
+                                        <option value="always_try_ai">Always try AI first</option>
+                                        <option value="immediate_human">Immediately route to human</option>
+                                        <option value="after_hours_ai">AI after hours only</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notifications -->
+                    <div class="card">
+                        <div class="card-header"><h3>Notifications</h3></div>
+                        <div class="card-body">
+                            <div class="toggle-row">
+                                <div>
+                                    <span class="toggle-label">Email on missed calls</span>
+                                    <span class="toggle-desc">Get notified when a call goes unanswered</span>
+                                </div>
+                                <label class="toggle">
+                                    <input type="checkbox" id="setting-notify-missed" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="toggle-row">
+                                <div>
+                                    <span class="toggle-label">Email on escalations</span>
+                                    <span class="toggle-desc">Get notified when the AI transfers a call to a human</span>
+                                </div>
+                                <label class="toggle">
+                                    <input type="checkbox" id="setting-notify-escalation" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="toggle-row">
+                                <div>
+                                    <span class="toggle-label">Daily summary email</span>
+                                    <span class="toggle-desc">Receive a daily report of all call activity</span>
+                                </div>
+                                <label class="toggle">
+                                    <input type="checkbox" id="setting-notify-daily">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions" style="justify-content:flex-end;padding:0 0 2rem;">
+                        <button type="submit" class="btn btn-primary btn-lg">Save Settings</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
