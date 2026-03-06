@@ -248,7 +248,7 @@ async function handleIncomingCall(request, env) {
     // No client found for this number
     return twiml(`<?xml version="1.0" encoding="UTF-8"?>
 <Response>
-  <Say>We're sorry, this number is not configured. Goodbye.</Say>
+  <Say voice="Google.en-US-Neural2-F">We're sorry, this number is not configured. Goodbye.</Say>
   <Hangup/>
 </Response>`);
   }
@@ -292,7 +292,7 @@ async function handleIncomingCall(request, env) {
   // We redirect to ai-answer from the action of each dial.
   return twiml(`<?xml version="1.0" encoding="UTF-8"?>
 <Response>
-  <Say>${escapeXml(client.greeting_message || 'Please hold while we connect you.')}</Say>
+  <Say voice="Google.en-US-Neural2-F">${escapeXml(client.greeting_message || 'Please hold while we connect you.')}</Say>
   ${dialSteps}
   <Redirect method="POST">/api/twilio/ai-answer?client_id=${client.id}&amp;call_sid=${encodeURIComponent(callSid)}</Redirect>
 </Response>`);
@@ -325,7 +325,7 @@ async function handleAiAnswer(request, env) {
   } catch {
     return twiml(`<?xml version="1.0" encoding="UTF-8"?>
 <Response>
-  <Say>We're sorry, we're unable to assist right now. Please try again later.</Say>
+  <Say voice="Google.en-US-Neural2-F">We're sorry, we're unable to assist right now. Please try again later.</Say>
   <Hangup/>
 </Response>`);
   }
@@ -360,11 +360,11 @@ async function handleAiAnswer(request, env) {
 
   return twiml(`<?xml version="1.0" encoding="UTF-8"?>
 <Response>
-  <Say>${escapeXml(greeting)}</Say>
+  <Say voice="Google.en-US-Neural2-F">${escapeXml(greeting)}</Say>
   <Gather input="speech" timeout="5" speechTimeout="auto" action="/api/twilio/ai-respond?client_id=${clientId}&amp;call_sid=${encodeURIComponent(callSid)}" method="POST">
-    <Say>I'm listening.</Say>
+    <Say voice="Google.en-US-Neural2-F">I'm listening.</Say>
   </Gather>
-  <Say>I didn't hear anything. Goodbye.</Say>
+  <Say voice="Google.en-US-Neural2-F">I didn't hear anything. Goodbye.</Say>
   <Hangup/>
 </Response>`);
 }
@@ -380,10 +380,10 @@ async function handleAiRespond(request, env) {
   if (!speechResult.trim()) {
     return twiml(`<?xml version="1.0" encoding="UTF-8"?>
 <Response>
-  <Say>I didn't catch that. Could you please repeat?</Say>
+  <Say voice="Google.en-US-Neural2-F">I didn't catch that. Could you please repeat?</Say>
   <Gather input="speech" timeout="5" speechTimeout="auto" action="/api/twilio/ai-respond?client_id=${clientId}&amp;call_sid=${encodeURIComponent(callSid)}" method="POST">
   </Gather>
-  <Say>I still didn't hear anything. Goodbye.</Say>
+  <Say voice="Google.en-US-Neural2-F">I still didn't hear anything. Goodbye.</Say>
   <Hangup/>
 </Response>`);
   }
@@ -395,7 +395,7 @@ async function handleAiRespond(request, env) {
   } catch {
     return twiml(`<?xml version="1.0" encoding="UTF-8"?>
 <Response>
-  <Say>I'm sorry, I'm having trouble right now. Please call back later.</Say>
+  <Say voice="Google.en-US-Neural2-F">I'm sorry, I'm having trouble right now. Please call back later.</Say>
   <Hangup/>
 </Response>`);
   }
@@ -433,7 +433,7 @@ async function handleAiRespond(request, env) {
 
     return twiml(`<?xml version="1.0" encoding="UTF-8"?>
 <Response>
-  <Say>I understand you'd like to speak with someone directly. Unfortunately, no team members are available right now. I can submit your question and have someone call you back as soon as possible. Would you like that, or is there something else I can help you with?</Say>
+  <Say voice="Google.en-US-Neural2-F">I understand you'd like to speak with someone directly. Unfortunately, no team members are available right now. I can submit your question and have someone call you back as soon as possible. Would you like that, or is there something else I can help you with?</Say>
   <Gather input="speech" timeout="5" speechTimeout="auto" action="/api/twilio/ai-respond?client_id=${clientId}&amp;call_sid=${encodeURIComponent(callSid)}" method="POST">
   </Gather>
   <Hangup/>
@@ -558,11 +558,11 @@ RULES:
   // Respond with TwiML — say the response and gather more input
   return twiml(`<?xml version="1.0" encoding="UTF-8"?>
 <Response>
-  <Say>${escapeXml(aiResponse)}</Say>
+  <Say voice="Google.en-US-Neural2-F">${escapeXml(aiResponse)}</Say>
   <Gather input="speech" timeout="6" speechTimeout="auto" action="/api/twilio/ai-respond?client_id=${clientId}&amp;call_sid=${encodeURIComponent(callSid)}" method="POST">
-    <Say>Is there anything else I can help you with?</Say>
+    <Say voice="Google.en-US-Neural2-F">Is there anything else I can help you with?</Say>
   </Gather>
-  <Say>Thank you for calling ${escapeXml(client.name)}. Have a great day!</Say>
+  <Say voice="Google.en-US-Neural2-F">Thank you for calling ${escapeXml(client.name)}. Have a great day!</Say>
   <Hangup/>
 </Response>`);
 }
