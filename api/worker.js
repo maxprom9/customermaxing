@@ -1,6 +1,13 @@
 // =============================================================================
 // CustomerMaxing.com — Cloudflare Worker API
 // ES Modules format
+//
+// AI Model: Google Gemini 2.0 Flash-Lite
+//
+// NOTE (Twilio Voice): Currently uses basic <Gather input="speech"> for STT.
+// ConversationRelay can be added later for better voice quality — it requires
+// WebSocket support via Durable Objects which adds complexity. The <Gather>
+// approach works well for the prototype.
 // =============================================================================
 
 export default {
@@ -145,6 +152,43 @@ async function supabase(env, path, options = {}) {
     return res.json();
   }
   return null;
+}
+
+// =============================================================================
+// GEMINI AI HELPER
+// =============================================================================
+
+async function callGemini(env, systemPrompt, messages, maxOutputTokens = 300) {
+  // Convert messages from {role: 'user'|'assistant', content} to Gemini format
+  const contents = messages.map(msg => ({
+    role: msg.role === 'assistant' ? 'model' : 'user',
+    parts: [{ text: msg.content }],
+  }));
+
+  const geminiRes = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key=${env.GEMINI_API_KEY}`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents,
+        systemInstruction: { parts: [{ text: systemPrompt }] },
+        generationConfig: {
+          maxOutputTokens,
+          temperature: 0.7,
+        },
+      }),
+    }
+  );
+
+  if (!geminiRes.ok) {
+    const errText = await geminiRes.text();
+    console.error('Gemini API error:', errText);
+    return null;
+  }
+
+  const data = await geminiRes.json();
+  return data.candidates?.[0]?.content?.parts?.[0]?.text || null;
 }
 
 // =============================================================================
@@ -424,7 +468,7 @@ async function handleAiRespond(request, env) {
     ? kbEntries.map(e => `[${e.category.toUpperCase()}] ${e.title}\n${e.content}`).join('\n\n---\n\n')
     : 'No knowledge base entries available.';
 
-  // Build conversation messages for Claude
+  // Build conversation messages for Gemini
   const toneMap = {
     professional: 'Respond in a professional, courteous tone.',
     friendly: 'Respond in a warm, friendly tone.',
@@ -445,46 +489,29 @@ RULES:
 - Be helpful, natural, and conversational. Remember this is a phone call.
 - If you truly cannot help, offer two options: (1) submit the question for a callback, or (2) hold for the next available person.`;
 
-  const claudeMessages = [];
+  const geminiMessages = [];
 
   // Add conversation history
   for (const msg of conversationHistory) {
     if (msg.role === 'caller') {
-      claudeMessages.push({ role: 'user', content: msg.content });
+      geminiMessages.push({ role: 'user', content: msg.content });
     } else if (msg.role === 'ai') {
-      claudeMessages.push({ role: 'assistant', content: msg.content });
+      geminiMessages.push({ role: 'assistant', content: msg.content });
     }
   }
 
   // Add the current message
-  claudeMessages.push({ role: 'user', content: speechResult });
+  geminiMessages.push({ role: 'user', content: speechResult });
 
-  // Call Claude API
+  // Call Gemini API
   let aiResponse = "I'm sorry, I'm having trouble processing your request right now. Would you like me to have someone call you back?";
   try {
-    const claudeRes = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': env.ANTHROPIC_API_KEY,
-        'anthropic-version': '2023-06-01',
-      },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
-        max_tokens: 300,
-        system: systemPrompt,
-        messages: claudeMessages,
-      }),
-    });
-
-    if (claudeRes.ok) {
-      const claudeData = await claudeRes.json();
-      aiResponse = claudeData.content?.[0]?.text || aiResponse;
-    } else {
-      console.error('Claude API error:', await claudeRes.text());
+    const geminiText = await callGemini(env, systemPrompt, geminiMessages, 300);
+    if (geminiText) {
+      aiResponse = geminiText;
     }
   } catch (err) {
-    console.error('Claude API call failed:', err);
+    console.error('Gemini API call failed:', err);
   }
 
   // Check for SMS links in the response
@@ -580,27 +607,16 @@ async function handleCallStatus(request, env) {
       if (messages.length > 0) {
         const transcript = messages.map(m => `${m.role}: ${m.content}`).join('\n');
 
-        // Generate summary via Claude
+        // Generate summary via Gemini
         try {
-          const summaryRes = await fetch('https://api.anthropic.com/v1/messages', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'x-api-key': env.ANTHROPIC_API_KEY,
-              'anthropic-version': '2023-06-01',
-            },
-            body: JSON.stringify({
-              model: 'claude-sonnet-4-6',
-              max_tokens: 200,
-              system: 'Summarize this phone call transcript in 1-2 sentences. Focus on what the caller wanted and the outcome.',
-              messages: [{ role: 'user', content: transcript }],
-            }),
-          });
+          const summary = await callGemini(
+            env,
+            'Summarize this phone call transcript in 1-2 sentences. Focus on what the caller wanted and the outcome.',
+            [{ role: 'user', content: transcript }],
+            200
+          );
 
-          if (summaryRes.ok) {
-            const summaryData = await summaryRes.json();
-            const summary = summaryData.content?.[0]?.text || '';
-
+          if (summary) {
             await supabase(env, `cm_calls?twilio_call_sid=eq.${encodeURIComponent(callSid)}`, {
               method: 'PATCH',
               body: {
