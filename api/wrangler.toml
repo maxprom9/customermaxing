@@ -5,6 +5,7 @@ compatibility_date = "2024-01-01"
 [vars]
 SUPABASE_URL = "https://vzvqpanrxemediggvtaf.supabase.co"
 SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ6dnFwYW5yeGVtZWRpZ2d2dGFmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIzNDcyNDksImV4cCI6MjA4NzkyMzI0OX0.BSgaoiXopChkpVCZvCud7iEtc7yx7yZYrcw7NlusuR0"
+TWILIO_PHONE_NUMBER = "+18444847597"
 
 # These should be set as secrets via wrangler: wrangler secret put VARIABLE_NAME
 # SUPABASE_SERVICE_ROLE_KEY

@@ -42,6 +42,9 @@ export default {
       else if (path === '/api/twilio/status' && method === 'POST') {
         response = await handleCallStatus(request, env);
       }
+      else if (path === '/api/twilio/send-sms' && method === 'POST') {
+        response = await handleSendSms(request, env);
+      }
 
       // --- REST API (auth required) ---
       else if (path.startsWith('/api/')) {
@@ -565,6 +568,42 @@ RULES:
   <Say voice="Google.en-US-Neural2-F">Thank you for calling ${escapeXml(client.name)}. Have a great day!</Say>
   <Hangup/>
 </Response>`);
+}
+
+async function handleSendSms(request, env) {
+  try {
+    const body = await request.json();
+    const { to, message } = body;
+
+    if (!to || !message) {
+      return json({ error: 'to and message are required' }, 400);
+    }
+
+    const twilioUrl = `https://api.twilio.com/2010-04-01/Accounts/${env.TWILIO_ACCOUNT_SID}/Messages.json`;
+    const res = await fetch(twilioUrl, {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Basic ' + btoa(`${env.TWILIO_ACCOUNT_SID}:${env.TWILIO_AUTH_TOKEN}`),
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams({
+        From: env.TWILIO_PHONE_NUMBER || '+18444847597',
+        To: to,
+        Body: message,
+      }).toString(),
+    });
+
+    if (!res.ok) {
+      const errText = await res.text();
+      console.error('Twilio SMS error:', errText);
+      return json({ error: 'Failed to send SMS' }, 500);
+    }
+
+    return json({ ok: true, message: 'SMS sent successfully' });
+  } catch (err) {
+    console.error('Send SMS error:', err);
+    return json({ error: 'Internal error' }, 500);
+  }
 }
 
 async function handleCallStatus(request, env) {
