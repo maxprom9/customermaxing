@@ -11,9 +11,19 @@
 
     const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    // Derive client slug from subdomain
+    // Derive client slug from subdomain or ?client= param (for dev/preview)
     const hostname = window.location.hostname;
-    const clientSlug = hostname.includes('.') ? hostname.split('.')[0] : 'demo';
+    const urlParams = new URLSearchParams(window.location.search);
+    let clientSlug;
+    if (urlParams.get('client')) {
+        clientSlug = urlParams.get('client');
+    } else if (hostname.endsWith('.pages.dev') || hostname === 'localhost' || hostname === '127.0.0.1') {
+        clientSlug = 'demo'; // Will be overridden by ?client= param
+    } else if (hostname.includes('.')) {
+        clientSlug = hostname.split('.')[0];
+    } else {
+        clientSlug = 'demo';
+    }
 
     // ── State ────────────────────────────────
     let currentUser = null;
